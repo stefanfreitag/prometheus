@@ -48,6 +48,7 @@ directory '/opt/prometheus-2.3.2.linux-amd64' do
   recursive true
 end
 
+# TODO: Does this work?
 directory '/opt/prometheus-2.3.2.linux-amd64/data' do
   owner node['prometheus']['user']
   group node['prometheus']['group']

@@ -9,12 +9,17 @@ remote_file node['prometheus']['node_exporter']['local'] do
   action :create
 end
 
-
 # Extract prometheus to directory
 execute 'Extract prometheus' do
   command "tar xzvf #{node['prometheus']['node_exporter']['local']} -C /opt"
   cwd '/tmp'
 end
+
+execute 'Change ownership' do
+  command "chown -R #{node['prometheus']['user']}:#{node['prometheus']['group']} /opt/node_exporter-0.16.0.linux-amd64"
+  cwd '/tmp'
+end
+
 
 link '/opt/node_exporter' do
   owner node['prometheus']['user']
@@ -32,12 +37,12 @@ template '/etc/init.d/node_exporter' do
             node_exporter_path: '/opt/node_exporter',
             node_exporter_logdir: node['prometheus']['node_exporter']['log_dir'])
 end
-  
+
 service 'node_exporter' do
   supports status: true, restart: true, reload: true
   action %i[enable start]
 end
-  
+
 
 # TODO
 # scrape_configs:

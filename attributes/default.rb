@@ -3,7 +3,7 @@
 # Attribute:: default
 #
 
-# Directory where the prometheus binary will be installed
+# Home directory of the prometheus user
 default['prometheus']['dir'] = '/opt/prometheus'
 
 # Location of Prometheus binary
@@ -41,4 +41,21 @@ default['prometheus']['node_exporter']['url'] = 'https://github.com/prometheus/n
 default['prometheus']['node_exporter']['local'] = '/tmp/node_exporter-0.16.0.linux-amd64.tar.gz'
 
 # Location for Prometheus node_exporter logs
-default['prometheus']['node_exporter']['log_dir'] = '/var/log/node_exporter'
+default['prometheus']['node_exporter']['log_dir'] = '/opt/node_exporter'
+
+#
+# Default attributes for grafana
+#
+
+default['grafana']['url'] = 'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.2.2.linux-amd64.tar.gz'
+# System user to use for grafana
+default['grafana']['user'] = 'grafana'
+
+# System group to use for grafana
+default['grafana']['group'] = 'grafana'
+
+# Name of the stored tar.gz on local system
+default['grafana']['local'] = '/tmp/grafana-5.2.2.linux-amd64.tar.gz'
+
+# Home directory of the grafana user
+default['grafana']['dir'] = '/opt/grafana'
