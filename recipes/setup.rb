@@ -70,3 +70,8 @@ service 'prometheus' do
   supports status: true, restart: true, reload: true
   action %i[enable start]
 end
+
+#prometheus_job 'prometheus' do
+#  scrape_interval   '15s'
+#  target            "http://localhost#{node['prometheus']['flags']['web.listen-address']}#{node['prometheus']['flags']['web.telemetry-path']}"
+#end
