@@ -46,6 +46,11 @@ link '/opt/prometheus' do
   link_type :symbolic
 end
 
+file node['prometheus']['local'] do
+  action :delete
+end
+
+
 # TODO: Ownership of files and directories no ok
 directory '/opt/prometheus-2.3.2.linux-amd64' do
   owner node['prometheus']['user']

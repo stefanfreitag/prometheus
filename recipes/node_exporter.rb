@@ -1,5 +1,19 @@
 # TODO: Create log direcetory
 
+# Create prometheus user
+user node['prometheus']['user'] do
+  system true
+  shell '/bin/false'
+  home node['prometheus']['dir']
+end
+
+# Create prometheus group
+group node['prometheus']['group'] do
+  action :create
+  members node['prometheus']['user']
+  append true
+end
+
 # Download prometheus node exporter to local directory
 remote_file node['prometheus']['node_exporter']['local'] do
   source node['prometheus']['node_exporter']['url']
