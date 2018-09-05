@@ -1,16 +1,43 @@
 # Inspec test for recipe prometheus::default
 
-# The Inspec reference, with examples and extensive documentation, can be
-# found at http://inspec.io/docs/reference/resources/
+# Users and groups
 
-unless os.windows?
-  # This is an example test, replace with your own test.
-  describe user('root'), :skip do
-    it { should exist }
-  end
+describe user('prometheus') do
+  it { should exist }
+  its('shell') { should eq '/bin/false' }
+  its('group') { should eq 'prometheus' }
 end
 
-# This is an example test, replace it with your own test.
-describe port(80), :skip do
-  it { should_not be_listening }
+describe group('prometheus') do
+  it { should exist }
 end
+
+# Ports
+
+describe port(22) do
+  it { should be_listening }
+end
+
+describe port(9090) do
+  it { should be_listening }
+end
+
+# Files and directories
+
+describe directory('/opt/prometheus') do
+  its('link_path') { should eq '/opt/prometheus-2.3.2.linux-amd64' }
+  its('group') { should eq 'prometheus' }
+  its('owner') { should eq 'prometheus' }
+end
+
+describe directory('/var/log/prometheus') do
+  its('group') { should eq 'prometheus' }
+  its('owner') { should eq 'prometheus' }
+end
+
+
+describe directory('/etc/init.d/prometheus') do
+  its('group') { should eq 'root' }
+  its('owner') { should eq 'root' }
+end
+

@@ -10,6 +10,13 @@ user node['prometheus']['user'] do
   home node['prometheus']['dir']
 end
 
+# Create prometheus group
+group node['prometheus']['group'] do
+  action :create
+  members node['prometheus']['user']
+  append true
+end
+
 # Create prometheus log directory
 directory node['prometheus']['log_dir'] do
   owner node['prometheus']['user']
@@ -30,7 +37,6 @@ end
 # Extract prometheus to directory
 execute 'Extract prometheus' do
   command "tar xzvf #{node['prometheus']['local']} -C /opt"
-  cwd '/tmp'
 end
 
 link '/opt/prometheus' do
@@ -71,7 +77,7 @@ service 'prometheus' do
   action %i[enable start]
 end
 
-#prometheus_job 'prometheus' do
-#  scrape_interval   '15s'
-#  target            "http://localhost#{node['prometheus']['flags']['web.listen-address']}#{node['prometheus']['flags']['web.telemetry-path']}"
-#end
+# prometheus_job 'prometheus' do
+#   scrape_interval   '15s'
+#   target            "http://localhost#{node['prometheus']['flags']['web.listen-address']}#{node['prometheus']['flags']['web.telemetry-path']}"
+# end
