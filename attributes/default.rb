@@ -45,3 +45,27 @@ default['prometheus']['node_exporter']['local'] = '/tmp/node_exporter-0.16.0.lin
 
 # Location for Prometheus node_exporter logs
 default['prometheus']['node_exporter']['log_dir'] = '/opt/node_exporter'
+
+#
+# Default attributes for the alert manager
+#
+
+
+# System user to use
+default['prometheus']['alertmanager']['user'] = 'alertmanager'
+
+# System group to use
+default['prometheus']['alertmanager']['group'] = 'alertmanager'
+
+
+# Directory where the alert manager binary will be installed
+default['prometheus']['alertmanager']['dir'] = '/opt/alert_manager'
+
+# URL of the Prometheus alert manager tar.gz to download
+default['prometheus']['alertmanager']['url'] = 'https://github.com/prometheus/alertmanager/releases/download/v0.15.2/alertmanager-0.15.2.linux-amd64.tar.gz'
+
+# Name of the stored tar.gz on local system
+default['prometheus']['alertmanager']['local'] = '/tmp/alertmanager-0.15.2.linux-amd64.tar.gz'
+
+# Location for Prometheus alert manager logs
+default['prometheus']['alertmanager']['log_dir'] = '/var/log/alertmanager'

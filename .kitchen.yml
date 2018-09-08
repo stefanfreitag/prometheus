@@ -15,26 +15,33 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-6
+  - name: centos-6.9
     driver_config:
       network:
 #      - ["forwarded_port", {guest: 3000, host: 3000}] # grafana
 #      - ["forwarded_port", {guest: 9090, host: 9090}] # prometheus
 #      - ["forwarded_port", {guest: 9100, host: 9100}] # node_exporter
 suites:
-  - name: default
+#  - name: default
+#    run_list:
+#      - recipe[prometheus::default]
+#    verifier:
+#      inspec_tests:
+#        - test/integration/default
+#    attributes:
+
+#  - name: node_exporter
+#    run_list:
+#      - recipe[prometheus::node_exporter]
+#    verifier:
+#      inspec_tests:
+#        - test/integration/node_exporter
+#    attributes:
+
+  - name: alertmanager
     run_list:
-      - recipe[prometheus::default]
+      - recipe[prometheus::alertmanager]
     verifier:
       inspec_tests:
-        - test/integration/default
+        - test/integration/alertmanager
     attributes:
-
-  - name: node_exporter
-    run_list:
-      - recipe[prometheus::node_exporter]
-    verifier:
-      inspec_tests:
-        - test/integration/node_exporter
-    attributes:
-
